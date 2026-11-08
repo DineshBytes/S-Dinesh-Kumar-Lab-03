@@ -95,7 +95,7 @@ The asynchronous initialization function `initializeDBAndServer()` executes upon
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/S-Dinesh-Kumar-Lab-03/S-Dinesh-Kumar-Lab-03.git
+   git clone https://github.com/DineshBytes/S-Dinesh-Kumar-Lab-03.git
    cd S-Dinesh-Kumar-Lab-03
    ```
 
