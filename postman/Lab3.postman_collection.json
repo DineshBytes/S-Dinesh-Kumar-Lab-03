@@ -1,0 +1,426 @@
+{
+  "info": {
+    "_postman_id": "a9b1c2d3-e4f5-4678-9012-3456789abcde",
+    "name": "Lab 3 - REST API & Query Parameters (S. Dinesh Kumar)",
+    "description": "Postman Collection for Lab 3: REST API, Query Parameters, Validation, and Debugging. Student: S. Dinesh Kumar (252U1R1227).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "01. Success Cases",
+      "item": [
+        {
+          "name": "01. GET All Books (Default Limit=10, Offset=0, Order=id ASC)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", ""]
+            }
+          }
+        },
+        {
+          "name": "02. GET Search by Title (search_q=JavaScript)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/?search_q=JavaScript",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", ""],
+              "query": [
+                {
+                  "key": "search_q",
+                  "value": "JavaScript"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "03. GET Sorting (order_by=price&order=DESC)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/?order_by=price&order=DESC",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", ""],
+              "query": [
+                {
+                  "key": "order_by",
+                  "value": "price"
+                },
+                {
+                  "key": "order",
+                  "value": "DESC"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "04. GET Pagination (limit=3&offset=3)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/?limit=3&offset=3",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", ""],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "3"
+                },
+                {
+                  "key": "offset",
+                  "value": "3"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "05. GET Price Range Filter (min_price=400&max_price=800)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/?min_price=400&max_price=800",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", ""],
+              "query": [
+                {
+                  "key": "min_price",
+                  "value": "400"
+                },
+                {
+                  "key": "max_price",
+                  "value": "800"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "06. GET Combined Filters (Search, Price, Order, Pagination)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/?search_q=the&min_price=200&max_price=900&order_by=price&order=DESC&limit=4&offset=0",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", ""],
+              "query": [
+                {
+                  "key": "search_q",
+                  "value": "the"
+                },
+                {
+                  "key": "min_price",
+                  "value": "200"
+                },
+                {
+                  "key": "max_price",
+                  "value": "900"
+                },
+                {
+                  "key": "order_by",
+                  "value": "price"
+                },
+                {
+                  "key": "order",
+                  "value": "DESC"
+                },
+                {
+                  "key": "limit",
+                  "value": "4"
+                },
+                {
+                  "key": "offset",
+                  "value": "0"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "07. GET Single Book by ID (ID: 1)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/1/",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", "1", ""]
+            }
+          }
+        },
+        {
+          "name": "08. POST Create Book (201 Created)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"System Design Interview\",\n  \"author\": \"Alex Xu\",\n  \"price\": 850,\n  \"pages\": 300\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/books/",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", ""]
+            }
+          }
+        },
+        {
+          "name": "09. PUT Update Book (200 OK)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"The Pragmatic Programmer (20th Anniversary Edition)\",\n  \"author\": \"David Thomas, Andrew Hunt\",\n  \"price\": 799,\n  \"pages\": 360\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/books/1/",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", "1", ""]
+            }
+          }
+        },
+        {
+          "name": "10. DELETE Book (200 OK)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/15/",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", "15", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "02. Validation & Error Handling Cases",
+      "item": [
+        {
+          "name": "11. POST Fail - Missing Title (400 Bad Request)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"author\": \"Martin Fowler\",\n  \"price\": 650,\n  \"pages\": 400\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/books/",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", ""]
+            }
+          }
+        },
+        {
+          "name": "12. POST Fail - Missing Author (400 Bad Request)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Refactoring\",\n  \"price\": 650,\n  \"pages\": 400\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/books/",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", ""]
+            }
+          }
+        },
+        {
+          "name": "13. POST Fail - Non-numeric Price (400 Bad Request)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Clean Code\",\n  \"author\": \"Robert C. Martin\",\n  \"price\": \"free\",\n  \"pages\": 464\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/books/",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", ""]
+            }
+          }
+        },
+        {
+          "name": "14. POST Fail - Negative Price (400 Bad Request)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Clean Code\",\n  \"author\": \"Robert C. Martin\",\n  \"price\": -50,\n  \"pages\": 464\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/books/",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", ""]
+            }
+          }
+        },
+        {
+          "name": "15. POST Fail - Non-positive Pages (400 Bad Request)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Clean Code\",\n  \"author\": \"Robert C. Martin\",\n  \"price\": 650,\n  \"pages\": 0\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/books/",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", ""]
+            }
+          }
+        },
+        {
+          "name": "16. GET Fail - Invalid order_by Column (400 Bad Request)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/?order_by=hacked_column",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", ""],
+              "query": [
+                {
+                  "key": "order_by",
+                  "value": "hacked_column"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "17. GET Fail - Invalid order Direction (400 Bad Request)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/?order=SIDEWAYS",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", ""],
+              "query": [
+                {
+                  "key": "order",
+                  "value": "SIDEWAYS"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "18. GET Fail - Negative Limit (400 Bad Request)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/?limit=-5",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", ""],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "-5"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "19. GET Fail - Invalid Non-numeric Book ID (400 Bad Request)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/abc/",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", "abc", ""]
+            }
+          }
+        },
+        {
+          "name": "20. GET Fail - Non-existent Book ID (404 Not Found)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/999/",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", "999", ""]
+            }
+          }
+        },
+        {
+          "name": "21. GET Fail - Unknown Route (404 Not Found)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/unknown-api-route/",
+              "host": ["{{baseUrl}}"],
+              "path": ["unknown-api-route", ""]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
